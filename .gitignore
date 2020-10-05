@@ -3,3 +3,5 @@ modules.xml
 vcs.xml
 tmp.txt
 workspace.xml
+codeStyleConfig.xml
+.idea
