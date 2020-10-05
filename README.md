@@ -1,0 +1,2 @@
+# DataMola
+learning JavaScript
