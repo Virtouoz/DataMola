@@ -112,7 +112,7 @@ console.log(list.lengthList());
 
 //Задание 2
 //Реализовать арифметику в функциональном стиле.
-/*
+
 function add(number1, number2) {
     if (number2 !== undefined) {
         return number1 + number2;
@@ -174,4 +174,3 @@ let result = doSmth(0); // (((0 + 58) - 29) * 30) / 3 = 290
 console.log(result);
 let x = pipe(add(1), mul(2))(3); // 8
 console.log(x);
-*/
