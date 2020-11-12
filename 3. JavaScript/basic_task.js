@@ -5,7 +5,6 @@ class Message {
         this.id = id;
         this.text = text;
         this.createdAt = createdAt;
-        console.log(this.createdAt);
         this.author = author;
         this.isPersonal = isPersonal // ?? !!to;          // ?? - если не null и indef то 1 иначе 2 аргумент
         this.to = to;
@@ -16,7 +15,7 @@ let messages = [
     {
         id: 1,
         text: 'Привет!',
-        createdAt: new Date('2020-10-12T23:00:50'),
+        createdAt: new Date('2020-10-12T20:00:50'),
         author: 'Иванов Иван',
         isPersonal: true,
         to: 'Петров Петр'
@@ -30,8 +29,8 @@ let messages = [
         to: 'Иванов Иван'
     },
     {
-        id: 3, //---ИСПРАВИТЬ-------------------------------------
-        text: 's',//---ИСПРАВИТЬ------------------------------------
+        id: 3,
+        text: 's',
         createdAt: new Date('2020-10-12T21:02:00'),
         author: 'Иванов Иван',
         isPersonal: true,
@@ -57,7 +56,7 @@ function addMessage(msg) {
 }
 //rmoveMessage(id: string): boolean
 function removeMessage(id) {
-    if (id !== -1) {
+    if (id >= 0) {
         const idx = messages.findIndex((message) => message.id === id);
         if (idx !== -1) {
             messages.splice(idx, 1);
@@ -68,9 +67,11 @@ function removeMessage(id) {
 }
 //getMessage(id: string): message
 function getMessage(id) {
-    if (id !== -1) {
+    if (id >= 0) {
         let idNew = id;
         const message = messages.find(({ id }) => idNew === id);
+        if (messages === undefined)
+            return false;
         return message;
     }
     return false;
@@ -99,38 +100,38 @@ function editMessage(id, msg) {
     return false;
 }
 //getMessages(skip?: number, top?: number, filterConfig?: Object): Array<message> 
-function getMessages(skip, top, filterConfig) {
-    skip = skip || 0;
-    top = top || 10;
+function getMessages(skip = 0, top = 10, filterConfig) {
     let array = messages.slice(skip, top);
     if (filterConfig !== undefined) {
-        let { author, dateFrom, dateTo, text } = filterConfig;
+        let { author, dateFrom, dateTo, text } = filterConfig[0];
         let author1 = author,
             text1 = text;
         console.log("text: " + text1 + "\ndateFrom: " + dateFrom + "\ndateTo: " + dateTo + "\nauthor: " + author1);
-        if (author1 !== undefined) {
-            array = array.filter(({ author }) => author === author1);
+        if (author1 === true) {
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            array.sort((a, b) => a.author > b.author ? 1 : -1);
         }
-        if (text1 !== undefined) {
-            array = array.filter(({ text }) => text === text1);
+        if (text1 === true) {
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            array.sort((a, b) => a.text > b.text ? 1 : -1);
         }
         if ((dateFrom !== undefined) && (dateTo !== undefined)) {
-            array = array.filter(({ createdAt }) => (createdAt >= dateFrom && createdAt <= dateTo));
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            //array = array.filter(({ createdAt }) => (createdAt >= dateFrom && createdAt <= dateTo));
+            if (array !== undefined) {
+                array.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1);
+            }
         }
     }
     return array;
 }
 //validateMessage(msg: message): boolean
 function validateMessage(msg) {
-    const data = { dateFrom: new Date('2019-10-12T21:01:00'), dateTo: new Date('2021-10-12T21:03:00') };
     let flag = 0;
-    if ((msg.id.length === uuid().length)
-        && (msg.text.length >= 0)
-        && (msg.author.length >= 1)
+    if ((msg.text.length >= 0)
+        && (msg.author.length >= 0)
         && (msg.isPersonal === true || msg.isPersonal === false)
-        && (msg.to.length >= 0)
-        && (msg.createdAt >= data.dateFrom)
-        && (msg.createdAt <= data.dateTo))
+        && (msg.to.length >= 0))
         return true;
     return false;
 }
@@ -140,30 +141,31 @@ function validateMessage(msg) {
 const a1 = { text: 's', dateFrom: new Date('2020-10-12T21:01:00'), dateTo: new Date('2020-10-12T21:03:00'), author: 'Иванов Иван' };
 //console.log(getMessages(0, 10, a1));
 
-const msg1 = new Message('Hi', 'Иван иваныч',new Date(), 'my', true, uuid());
+const msg1 = new Message('Hi', 'Иван иваныч', new Date(), 'my', true, uuid());
 addMessage(msg1);
 
 
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 15; i++) {
     const msg = new Message();
     addMessage(msg);
 }
 
-//console.log(getMessage(3));
+console.log(getMessage(3));
+console.log("\n------------------------------------\n")
+let filterConfig = [{ author: false, dateFrom: undefined, dateTo: undefined, text: false }];
+filterConfig[0].text = true;
+filterConfig[0].author = true;
+filterConfig[0].dateFrom = true;
+filterConfig[0].dateTo = true;
+console.log(getMessages(0, 4, filterConfig));
 
 const msg = new Message();
-//console.log(editMessage(3, { to: 'hi' }));
-//console.log(removeMessage(1));
-//console.log(removeMessage(4));
-//console.log(getMessage(3));
 
-let a;
+/*let a;
 for (let i = 0; i < messages.length; i++) {
     console.log('id: ' + messages[i].id + "\ntext: " + messages[i].text + "\ncreatedAt: " + messages[i].createdAt + "\nauthor: " + messages[i].author + "\nisPersonal: " + messages[i].isPersonal + "\nto: " + messages[i].to);
     a = getMessage(messages[i].id);
-}
+}*/
 
 //console.log('id: ' + a.id + "\ntext: " + a.text + "\ncreatedAt: " + a.createdAt + "\nauthor: " + a.author + "\nisPersonal: " + a.isPersonal + "\nto: " + a.to);
-
-
