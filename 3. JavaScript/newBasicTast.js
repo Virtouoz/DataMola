@@ -213,22 +213,30 @@
             addMessage(msg);
         }
 
-        // getMessages(0, 10).forEach(item => {
-        //     getMessageInConsole(item);
-        // });
+        getMessages(0, 10).forEach(item => {
+            getMessageInConsole(item);
+        });
 
-        // getMessages(10, 10).forEach(item => {
-        //     getMessageInConsole(item);
-        // });
+        getMessages(10, 10).forEach(item => {
+            getMessageInConsole(item);
+        });
 
         getMessages(0, 10, { author: user }).forEach(item => {
             getMessageInConsole(item);
         });
 
-        // let filterConfig1 = createdfilterConfig(user, new Date(Date.now() + 1 * 10000), new Date(Date.now() + 1000 * 10000));
-        // getMessages(0, 20, filterConfig1).forEach(item => {
-        //     getMessageInConsole(item);
-        // });
+        let msg = createdMessage(
+            123,
+            5 % 2 === 0 ? true : false,
+            4 % 2 === 0 ? "qwe" : "1232453",
+            user,
+            new Date(Date.now() + (2 % 2 === 0 ? -2.5 * 100000 : 2.5 * 100000)));
+        console.log(addMessage(msg));
+
+        let filterConfig1 = createdfilterConfig(user, new Date(Date.now() + 1 * 10000), new Date(Date.now() + 1000 * 10000));
+        getMessages(0, 20, filterConfig1).forEach(item => {
+            getMessageInConsole(item);
+        });
 
     }
 
