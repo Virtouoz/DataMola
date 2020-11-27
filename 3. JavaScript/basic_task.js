@@ -139,25 +139,18 @@ function validateMessage(msg) {
 
 
 const a1 = { text: 's', dateFrom: new Date('2020-10-12T21:01:00'), dateTo: new Date('2020-10-12T21:03:00'), author: 'Иванов Иван' };
-//console.log(getMessages(0, 10, a1));
-
 const msg1 = new Message('Hi', 'Иван иваныч', new Date(), 'my', true, uuid());
 addMessage(msg1);
-
-
-
 for (let i = 0; i < 15; i++) {
     const msg = new Message();
     addMessage(msg);
 }
-
 console.log(getMessage(3));
-console.log("\n------------------------------------\n")
-let filterConfig = [{ author: false, dateFrom: undefined, dateTo: undefined, text: false }];
+/*let filterConfig = [{ author: false, dateFrom: undefined, dateTo: undefined, text: false }];
 filterConfig[0].text = true;
 filterConfig[0].author = true;
 filterConfig[0].dateFrom = true;
-filterConfig[0].dateTo = true;
+filterConfig[0].dateTo = true;*/
 console.log(getMessages(0, 4, filterConfig));
 
 const msg = new Message();
@@ -167,5 +160,4 @@ for (let i = 0; i < messages.length; i++) {
     console.log('id: ' + messages[i].id + "\ntext: " + messages[i].text + "\ncreatedAt: " + messages[i].createdAt + "\nauthor: " + messages[i].author + "\nisPersonal: " + messages[i].isPersonal + "\nto: " + messages[i].to);
     a = getMessage(messages[i].id);
 }*/
-
 //console.log('id: ' + a.id + "\ntext: " + a.text + "\ncreatedAt: " + a.createdAt + "\nauthor: " + a.author + "\nisPersonal: " + a.isPersonal + "\nto: " + a.to);
