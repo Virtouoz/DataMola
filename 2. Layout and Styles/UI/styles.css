@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #138AF2;
+}
+
+.topnav a {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #21dad0;
+    color: black;
+}
+
+.footer {
+    font-size: 14px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #138AF2;
+    color: #000010;
+    text-align: center;
+}
+
+.button_1{
+    background-color: #138AF2;
+    color: #000010;
+    text-align: center;
+}
