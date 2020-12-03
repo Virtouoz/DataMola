@@ -1,57 +1,139 @@
-// let item = ['one', 'two', 'three'];
-// let itemNew = item;
-// item = ['new', 'Array'];
-// console.log(item !== itemNew);
+// fetch('https://api.chucknorris.io/jokes/random1')
+//     .then((response) => {
+//         if (response.status !== 200) {
+//             throw new Error("Not ok!!");
+//         }
+//         return response.json()
+//     })
+//     .then(data => key(data))
+//     .catch((err) => console.log(err));
 
-// item = 'test';
-// itemNew = item;
-// item += 'ing';
-// console.log(item !== itemNew);
-// console.log(item.indexOf('es'));
-// console.log(item.toUpperCase());
-// console.log(item);
-
-// let foo = 'test';
-// if (true) {
-//     foo = 'new test';
-//     console.log(foo);
-// }
-// console.log(foo);
-// console.log(foo === 'new test');
-
-// function test() {
-//     foo = 'old test';
+// function key(data) {
+//     for (const key in data) {
+//         console.log(data[key]);
+//     }
 // }
 
-// test();
-// console.log(foo);
-// console.log(window.foo);
 
-// function test() {
-//     foo = 'test';
-// }
 
-// test();
-
-// console.log(window.foo === 'test');
-
-function setFoo(fooInput) {
-    this.foo = fooInput;
-}
-
-var foo = 5;
-console.log('foo at the widow level is set to: ' + foo);
-
-var obj = {
-    foo: 10
+let A = () => {
+    let tr = document.createElement('tr');
+    let column1 = createElement('td',[column1],tr);
 };
 
-console.log('foo inside of obj is set to: ' + obj.foo);
 
-setFoo(15);
-console.log('foo at the window level is now set to : ' + foo);
 
-obj.setFoo = setFoo;
-obj.setFoo(20);
-console.log('foo inside of obj is now set to: ' + obj.foo);
-console.log('foo inside of obj is now set to: ' + foo);
+
+
+
+
+
+
+
+
+
+
+function getJoke() {
+    return fetch('https://api.chucknorris.io/jokes/random')
+        .then(response => response.json())
+        .then(response => response.value)
+}
+
+function setTime(timeot, value, fail) {
+    return new Promise((resolve, reject) => {
+        setTimeout(fail ? reject : resolve, timeot, value);
+    });
+}
+
+getJoke()
+    .then(console.log);
+
+Promise.all([setTime(1000, 'a'), setTime(1500, 'b'), setTime(500, 'c')])
+    .then(console.log);
+
+Promise.allSettled([setTime(1000, 'a', true), setTime(1500, 'b'), setTime(500, 'c')])
+    .then(console.log);
+
+Promise.any([setTime(900, 'a', true), setTime(1500, 'b'), setTime(500, 'c'),])
+    .then((response) => console.log('any:') || response)
+    .then((response) => console.log(response));
+
+Promise.race([setTime(1000, 'a', true), setTime(1500, 'b'), setTime(500, 'c')])
+    .then(console.log);
+
+
+//*Reduce
+const arr = [setTime(1000, 'a', true), setTime(1500, 'b'), setTime(500, 'c'),
+getJoke(), getJoke(), getJoke(), getJoke()];
+
+// arr.reduce((acc, elem) => {
+//     return acc.then(elem)
+// }, Promise.resolve())
+//     .then((r) => console.log('reduce: ', r));
+
+const data = [];
+arr.reduce((acc, elem) => {
+    return acc.then((r) => {
+        if (r) {
+            data.push(r);
+        }
+
+        return elem;
+    })
+}, Promise.resolve())
+    .then((r) => console.log('reduce:', data));
+
+const dataNew = [];
+arr.reduce(async (acc, elem) => {
+    const r = await acc;
+    if (r) {
+        dataNew.push(r);
+    }
+
+    return elem;
+}, Promise.resolve())
+    .then((r) => console.log('rduceNew:', dataNew));
+
+async function newFoo() {
+    try {
+        const r = await setTime(1000, 'await', dataNew);
+        console.log('asyn foo:', r);
+        return r;
+    } catch (e) {
+        console.error('error');
+    }
+    const r = await getJoke();
+    console.log('asyn foo:  ', r);
+}
+
+
+
+var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+};
+
+fetch("http://46.101.141.135:3000/users", requestOptions)
+    .then(response => {
+        response.json();
+        console.log();
+    })
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+
+
+var formdata = new FormData();
+formdata.append("name", "dimas");
+formdata.append("pass", "********");
+
+var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+};
+
+fetch("http://46.101.141.135:3000/auth/register", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));

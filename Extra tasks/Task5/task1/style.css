@@ -1,0 +1,15 @@
+#calendar {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th {
+    background: #c6c6c6;
+}
+
+td,
+th {
+    border: 0.15rem solid #1f1f1f;
+    text-align: center;
+}
