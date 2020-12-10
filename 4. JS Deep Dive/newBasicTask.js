@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const uuid = () => ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
 let globalUser = 'Sacha';
 let id = 0;
@@ -55,6 +56,30 @@ class Message {
         if (text) {
             this._text = text;
         }
+=======
+var user = "curentUser";
+const uuid = () => ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+
+class Message {
+
+    constructor(text = 'qwe', isPersonal, to, author = user, createdAt = new Date(), id = uuid()) {
+        this._id = id;
+        this.text = text;
+        this._createdAt = createdAt;
+        this._author = author;
+        this.isPersonal = isPersonal
+        this.to = to;
+    }
+
+    set id(value) {
+        //this._id = value;
+    }
+    set createdAt(createdAt) {
+        //this._createdAt = createdAt;
+    }
+    set author(author) {
+        //this._author = author;
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
     }
 
     get id() {
@@ -66,26 +91,40 @@ class Message {
     get author() {
         return this._author;
     }
+<<<<<<< HEAD
     get to() {
         return this._to;
     }
     get text() {
         return this._text;
     }
+=======
+
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
 }
 
 class MessageList {
 
     //constructor(msgs: Array<Message>)
+<<<<<<< HEAD
     constructor(messages) {
         this._messages = [];
         messages.forEach((msg) => (MessageList.validate(msg) ? this._messages.push(msg) : console.log(msg)));
+=======
+    constructor(msgs = [new Message()]) {
+        this.msg = [msgs];
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
     }
 
     //getPage(skip?: number, top?: number, filterConfig?: Object): Array<Message>
     getPage(skip = 0, top = 10, filterConfig) {
         let newMessages = new Array();
+<<<<<<< HEAD
         newMessages = this._messages.slice(skip, skip + top);
+=======
+        newMessages = messages.slice(skip, skip + top);
+
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
         for (let key in filterConfig) {
 
             if (Object.prototype.toString.call(filterConfig[key]) === '[object Date]' && key === "dateFrom") {
@@ -109,7 +148,11 @@ class MessageList {
                     }
                 });
                 a.reverse();
+<<<<<<< HEAD
                 for (let i = 1; i < a.length; i++) {
+=======
+                for (let i = 0; i < a.length; i++) {
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
                     newMessages.splice(a[i], 1);
                 }
             }
@@ -156,25 +199,44 @@ class MessageList {
 
     //get(id: string): Message
     get(id1) {
+<<<<<<< HEAD
         //this.getMessageInConsole(this._messages[this._messages.findIndex(item => item.id === id1)]);
         return this._messages[this._messages.findIndex(item => item.id === id1)];
+=======
+        let newId1 = messages.findIndex(item => item.id === id1);
+        return messages[newId1];
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
     }
 
     //add(msg: message): boolean
     add(msg) {
         if (MessageList.validate(msg)) {
+<<<<<<< HEAD
             this._messages.push(msg);
+=======
+            if (this.length + 1 === this.push(msg)) {
+                return true;
+            }
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
         }
         return false;
     }
 
     //edit(id: string, msg: message): boolean
     edit(id, msg) {
+<<<<<<< HEAD
         let msgArray = this.get(id);
         if (msgArray !== undefined && msgArray.author === msg.author) {
             for (let keyMsg in msg) {
                 for (let key in msgArray) {
                     if (keyMsg === key && keyMsg !== "_id" && keyMsg !== "_author" && keyMsg !== "_createdAt") {
+=======
+        let msgArray = get(id);
+        if (msgArray !== undefined) {
+            for (let keyMsg in msg) {
+                for (let key in msgArray) {
+                    if (keyMsg === key && keyMsg !== "id" && keyMsg !== "author" && keyMsg !== "createdAt") {
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
                         msgArray[key] = msg[keyMsg];
                     }
                 }
@@ -186,11 +248,19 @@ class MessageList {
 
     //remove(id: string): boolean 
     remove(id) {
+<<<<<<< HEAD
         let msg = this.get(id);
         let i = 0;
         this._messages.forEach((item) => {
             if (item.id === msg.id && item.author === globalUser) {
                 this._messages.splice(i, 1);
+=======
+        let msg = get(id);
+        let i = 0;
+        messages.forEach(function (item) {
+            if (item === msg) {
+                messages.splice(i, 1);
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
                 return true;
             }
             i++;
@@ -204,7 +274,11 @@ class MessageList {
             let fl = 0;
             for (let key in msg) {
                 if ((key === "_id" && Object.prototype.toString.call(msg[key]) === "[object String]") ||
+<<<<<<< HEAD
                     (key === "_text" && Object.prototype.toString.call(msg[key]) === "[object String]") ||
+=======
+                    (key === "text" && Object.prototype.toString.call(msg[key]) === "[object String]") ||
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
                     (key === "_author" && Object.prototype.toString.call(msg[key]) === "[object String]") ||
                     (key === "_createdAt" && Object.prototype.toString.call(msg[key]) === '[object Date]')) {
                     fl++;
@@ -217,6 +291,7 @@ class MessageList {
         return false;
     }
 
+<<<<<<< HEAD
     getMessageInConsole(msg) {
         console.log('id: ' + msg.id +
             "\ntext: " + msg.text +
@@ -312,3 +387,27 @@ console.log(messages);
 
 console.log('addAll', messages.addAll(mess));
 console.log(messages);
+=======
+
+    //addAll(msgs: Array<Message>): Array<Message> 
+
+    //clear()
+
+    //Добиться неизменяемости полей id, createdAt и author с помощью get/set.
+
+}
+
+let mess = new MessageList ();
+let mess1 = new Message();
+console.log(mess);
+mess.push(mees1);
+console.log(mess.add(new Message));
+
+console.log(mess[0]);
+console.log(mess);
+
+let mes = new Message();
+
+console.log(mes.id = 6);
+console.log(mes);
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67

@@ -80,6 +80,10 @@ function getDay(date) {
 }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 01d42284d06296cc2cea43aee279c6fc5329cf67
 butt.onclick = function () {
     let month, year;
     let date = (document.getElementById('dataId').value);
