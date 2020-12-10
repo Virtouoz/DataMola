@@ -13,13 +13,14 @@ function createId() {
 
 class Message {
 
-    constructor(text = '', to = '', isPersonal = null, author = globalUser, createdAt = new Date(), id = createId()) {
+    constructor(text = '', to = '', isPersonal = null, author = globalUser, createdAt = new Date(), id = createId(), user = globalUser) {
         this._id = id;
         this._text = text;
         this._createdAt = createdAt;
         this._author = author;
         this.isPersonal = (to !== '') ? true : false;
         this._to = to;
+        this._user = user;
     }
 
     set id(id) {
@@ -60,6 +61,9 @@ class Message {
             this._text = text;
         }
     }
+    set user(user) {
+        this._user = user;
+    }
 
     get id() {
         return this._id;
@@ -76,6 +80,9 @@ class Message {
     get text() {
         return this._text;
     }
+    get user() {
+        return this._user;
+    }
 }
 
 class MessageList {
@@ -84,6 +91,7 @@ class MessageList {
     constructor(messages) {
         this._messages = [];
         messages.forEach((msg) => (MessageList.validate(msg) ? this._messages.push(msg) : console.log(msg)));
+        this._user = user || globalUser;
     }
 
     //getPage(skip?: number, top?: number, filterConfig?: Object): Array<Message>
@@ -176,10 +184,10 @@ class MessageList {
     //edit(id: string, msg: message): boolean
     edit(id, msg) {
         let msgArray = this.get(id);
-        if (msgArray !== undefined && msgArray.author === msg.author) {
+        if (msgArray !== undefined && msgArray.author === msg.author === this._user) {
             for (let keyMsg in msg) {
                 for (let key in msgArray) {
-                    if (keyMsg === key && keyMsg !== "_id" && keyMsg !== "_author" && keyMsg !== "_createdAt") {
+                    if (keyMsg === key && keyMsg !== "_id" && keyMsg !== "_author" && keyMsg !== "_createdAt" && keyMsg !== "_user") {
                         msgArray[key] = msg[keyMsg];
                     }
                 }
@@ -194,7 +202,7 @@ class MessageList {
         let msg = this.get(id);
         let i = 0;
         this._messages.forEach((item) => {
-            if (item.id === msg.id && item.author === globalUser) {
+            if (item.id === msg.id && item.author === this._user) {
                 this._messages.splice(i, 1);
                 return true;
             }
