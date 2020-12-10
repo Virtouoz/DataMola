@@ -1,0 +1,23 @@
+{
+  "name": "datamola",
+  "version": "1.0.0",
+  "description": "learning JavaScript\r )",
+  "main": "index.js",
+  "dependencies": {
+    "eslint": "^7.15.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Virtouoz/DataMola.git"
+  },
+  "author": "Kliutsuk Aliaksandr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Virtouoz/DataMola/issues"
+  },
+  "homepage": "https://github.com/Virtouoz/DataMola#readme"
+}
